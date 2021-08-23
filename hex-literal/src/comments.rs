@@ -73,6 +73,11 @@ impl<I: Iterator<Item = u8>> ExcludingComments<I> {
                             self.state = State::PotentialComment { previous: next };
                             continue;
                         }
+                        b'#' => {
+                            self.iter.next();
+                            self.state = State::LineComment;
+                            continue;
+                        }
                         _ => Some(next),
                     }
                 }
